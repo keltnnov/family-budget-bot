@@ -4,10 +4,10 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const axios = require('axios');
 
 // ─── НАСТРОЙКИ ───────────────────────────────────────────────
-const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
-const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN || '';
+const SPREADSHEET_ID = process.env.SPREADSHEET_ID || '';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const GOOGLE_CREDENTIALS = process.env.GOOGLE_CREDENTIALS ? JSON.parse(process.env.GOOGLE_CREDENTIALS) : {};
 // ─────────────────────────────────────────────────────────────
 
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true });
