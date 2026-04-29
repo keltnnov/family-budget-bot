@@ -4,17 +4,21 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const axios = require('axios');
 
 // ─── НАСТРОЙКИ ───────────────────────────────────────────────
-const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN || '';
-const SPREADSHEET_ID = process.env.SPREADSHEET_ID || '';
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
-const GOOGLE_CREDENTIALS = process.env.GOOGLE_CREDENTIALS ? JSON.parse(process.env.GOOGLE_CREDENTIALS) : {};
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL;
+const GOOGLE_PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
 // ─────────────────────────────────────────────────────────────
 
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true });
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 const auth = new google.auth.GoogleAuth({
-  credentials: GOOGLE_CREDENTIALS,
+  credentials: {
+    client_email: GOOGLE_CLIENT_EMAIL,
+    private_key: GOOGLE_PRIVATE_KEY,
+  },
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 const sheets = google.sheets({ version: 'v4', auth });
