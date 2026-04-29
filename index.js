@@ -76,7 +76,7 @@ async function initSpreadsheet() {
 }
 
 async function analyzeReceipt(imageBuffer) {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
   const imagePart = { inlineData: { data: imageBuffer.toString('base64'), mimeType: 'image/jpeg' } };
   const prompt = `Это фото кассового чека. Верни ТОЛЬКО JSON без markdown и пояснений:
 {"store":"название магазина или Неизвестно","total":сумма_числом,"items":[{"name":"товар","qty":количество,"price":цена}]}
@@ -88,7 +88,7 @@ async function analyzeReceipt(imageBuffer) {
 }
 
 async function analyzeSpending(byCategory, total, monthName) {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
   const prompt = `Ты финансовый помощник семьи. Расходы за ${monthName}:
 ${Object.entries(byCategory).map(([k,v]) => `${k}: ${Math.round(v)}₽`).join('\n')}
 Итого: ${Math.round(total)}₽
